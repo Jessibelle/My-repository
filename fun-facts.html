@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Fun Facts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .fact-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            font-size: 1.2em;
+            line-height: 1.6;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .fact-counter {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Fun Facts</h1>
+        <p class="subtitle">Click the button to discover amazing facts!</p>
+        
+        <div class="fact-box" id="factBox">
+            Click the button below to get started!
+        </div>
+
+        <div class="button-container">
+            <button onclick="showRandomFact()">Get Random Fact</button>
+            <button onclick="location.reload()">Reset</button>
+        </div>
+
+        <div class="fact-counter">
+            <span id="factCount">Facts shown: 0</span>
+        </div>
+    </div>
+
+    <script>
+        const facts = [
+            "Honey never spoils. Archaeologists have found 3,000-year-old honey in Egyptian tombs that was still edible!",
+            "A group of flamingos is called a 'flamboyance.'",
+            "Octopuses have three hearts: two pump blood to the gills, one pumps it to the rest of the body.",
+            "Bananas are berries, but strawberries aren't—botanically speaking!",
+            "A day on Venus is longer than its year. Venus takes 243 Earth days to rotate, but only 225 days to orbit the Sun.",
+            "Wombats produce cube-shaped poop to prevent it from rolling away.",
+            "Cleopatra lived closer to the invention of the iPhone than to the construction of the Great Pyramid.",
+            "Sloths can hold their breath longer than dolphins.",
+            "The shortest war in history lasted 38 to 45 minutes (between Britain and Zanzibar in 1896).",
+            "A group of crows is called a 'murder.'",
+            "Polar bears' skin is actually black; their fur just appears white.",
+            "Scotland's national animal is a unicorn.",
+            "Carrots weren't originally orange; they were purple.",
+            "You can't hum while holding your nose closed.",
+            "The smell of fresh-cut grass is actually a chemical reaction that's a distress signal from the plant.",
+            "Cats have over 20 vocalizations to communicate with each other.",
+            "A jiffy is an actual unit of time: 1/100th of a second.",
+            "The fingerprints of koalas are so similar to humans that they could confuse crime scene investigators.",
+            "Butterflies taste with their feet.",
+            "An ostrich's eye is bigger than its brain.",
+        ];
+
+        let factsShown = 0;
+        let usedIndices = new Set();
+
+        function showRandomFact() {
+            if (usedIndices.size === facts.length) {
+                document.getElementById('factBox').textContent = 
+                    "You've seen all the facts! Click 'Reset' to start over.";
+                return;
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * facts.length);
+            } while (usedIndices.has(randomIndex));
+
+            usedIndices.add(randomIndex);
+            factsShown++;
+
+            document.getElementById('factBox').textContent = facts[randomIndex];
+            document.getElementById('factCount').textContent = 
+                `Facts shown: ${factsShown} / ${facts.length}`;
+        }
+
+        // Show first fact on page load
+        window.addEventListener('load', showRandomFact);
+    </script>
+</body>
+</html>
